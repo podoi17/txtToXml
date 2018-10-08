@@ -85,10 +85,12 @@ public class AdressHelper {
             String search = ortsteil + " " + strasse;
             String searchURL = "http://www.google.com/search?q=" + search + "&num=" + 1;
             //Document doc = Jsoup.connect(searchURL).timeout(30000).userAgent("Mozilla/5.0 (Windows; U; Windows NT 6.1; rv:2.2) Gecko/20110201").get();
-            Document doc = Jsoup.connect(searchURL)
-                    .userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
-                    .referrer("http://www.google.com")
-                    .get();
+            Document doc = Jsoup
+                    .connect(searchURL)
+                    .userAgent(
+                            "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)")
+                    .timeout(5000).get();
+
 
             Elements results = doc.select("h3.r > a");
             postal = results.get(0).text();
@@ -96,6 +98,7 @@ public class AdressHelper {
 //            System.out.println("foo");
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println(ortsteil + ", " + strasse);
         }
         if(postal.matches("[0-9]+ Berlin")) {
             return postal;

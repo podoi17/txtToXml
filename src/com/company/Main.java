@@ -19,7 +19,7 @@ public class Main {
 
     public static void main(String[] args) {
 //	// write your code here
-        String path = "/Users/Manuel/Documents/HTW/fuenfteSemester/projekt/DenkmallisteBerlin.txt";
+        String path = "DenkmallisteBerlin.txt";
         TXTService transform = new TXTService(path);
         transform.getObjectIDS();
 //        transformer.printList();
@@ -35,6 +35,14 @@ public class Main {
                 System.out.println(counterID + " details generated");
             }
             counterID = counterID + 1;
+            try {
+                if(counterID == 600) {
+                    Thread.sleep(100000);
+                }
+            } catch (Exception e) {
+                System.out.println(e.getCause());
+            }
+
         }
 
 

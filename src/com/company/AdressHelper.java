@@ -7,6 +7,7 @@ import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class AdressHelper {
 
@@ -67,7 +68,13 @@ public class AdressHelper {
                 denkmal.setStreets(tempStreets);
             }
 
-            String postal = getPostalCode(tempOrtsTeil, tempStreets.get(0));
+            String postal;
+            if (!tempStreets.isEmpty()) {
+                postal = getPostalCode(tempOrtsTeil, tempStreets.get(0));
+            } else {
+                postal = getPostalCode(tempOrtsTeil, "");
+            }
+
             denkmal.setPostal(postal);
         } catch (Exception e) {
             System.out.println(e.getCause());
@@ -83,21 +90,24 @@ public class AdressHelper {
         String postal = "";
         try {
             String search = ortsteil + " " + strasse;
+            String searchURLBing= "http://www.bing.com/search?q=" + search + "&num=" + 1;
             String searchURL = "http://www.google.com/search?q=" + search + "&num=" + 1;
             //Document doc = Jsoup.connect(searchURL).timeout(30000).userAgent("Mozilla/5.0 (Windows; U; Windows NT 6.1; rv:2.2) Gecko/20110201").get();
             Document doc = Jsoup
                     .connect(searchURL)
                     .userAgent(
                             "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)")
-                    .timeout(5000).get();
-
+                    .timeout(50000).get();
 
             Elements results = doc.select("h3.r > a");
             postal = results.get(0).text();
-            postal = postal.substring(postal.length() - 12, postal.length());
-//            System.out.println("foo");
+            if(Pattern.compile("[0-9]+").matcher(postal).find()) {
+                postal = postal.substring(postal.length() - 12, postal.length());
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println(e.getCause());
             System.out.println(ortsteil + ", " + strasse);
         }
         if(postal.matches("[0-9]+ Berlin")) {

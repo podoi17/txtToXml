@@ -100,6 +100,7 @@ public class AdressHelper {
             e.printStackTrace();
             System.out.println(ortsteil + ", " + strasse);
         }
+
         if(postal.matches("[0-9]+ Berlin")) {
             return postal;
         } else {

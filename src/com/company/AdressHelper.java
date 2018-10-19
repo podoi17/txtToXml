@@ -5,6 +5,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -15,7 +16,15 @@ public class AdressHelper {
     private  final String ortsteil = "Ortsteil: ";
     private  final String strasse = "Strasse: ";
     private final String hausnummer = "Hausnummer: ";
+    private final String entwurf = "Entwurf";
+    private final String datierung = "Datierung:";
+    private final String ausfuehrung = "Ausführung:";
+    private final String bauherr = "Bauherr:";
+    private final String sachbegriff = "Sachbegriff:";
+    private final String teilNr = "Teil-Nr.:";
     private Denkmal denkmal;
+
+
 
     public Denkmal getObjectDetails(String id) {
         try {
@@ -116,6 +125,37 @@ public class AdressHelper {
             return "-";
         }
 
+    }
+
+    public List<String> getBodyInfo(String id) {
+        List<String> newElements = new ArrayList<>();
+        try {
+            Document doc = Jsoup.connect("http://www.stadtentwicklung.berlin.de/denkmal/liste_karte_datenbank/de/denkmaldatenbank/daobj.php?obj_dok_nr=" + id).get();
+            Elements bodies = doc.select(".denkmal_detail_body tr");
+            Elements subs = doc.select(".denkmal_detail_sub");
+            if(subs.isEmpty()) {
+                for(Element element : bodies) {
+                    newElements.add(element.text());
+                }
+            } else {
+
+            }
+            for(String string: newElements) {
+                System.out.println(string);
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return newElements;
+    }
+
+    public List<String> getSubInfo(String id) {
+        return null;
+    }
+
+    public String getDetaliText(String id) {
+        return null;
     }
 
 

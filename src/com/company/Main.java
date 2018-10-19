@@ -9,8 +9,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -28,105 +27,51 @@ public class Main {
 
 
         try {
-            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-            Document document = documentBuilder.parse(file.getPath());
+            Reader fileReader = new FileReader(file);
+            BufferedReader bufReader = new BufferedReader(fileReader);
 
-            String rootNode = document.getDocumentElement().getNodeName();
-            NodeList nodeList = document.getElementsByTagName(rootNode);
-            Node firstNode = document.getElementsByTagName(rootNode).item(0);
-            NodeList nList = document.getElementsByTagName("denkmal");
-            Node first = nList.item(0);
-            Element year = document.createElement("year");
-            year.appendChild(document.createTextNode("1999"));
-            first.appendChild(year);
+            StringBuilder sb = new StringBuilder();
+            String line = bufReader.readLine();
+            while( line != null){
+                line = bufReader.readLine();
 
+            }
+            String xml2String = sb.toString();
+            System.out.println("XML to String using BufferedReader : ");
+            System.out.println(xml2String);
 
-
-
-            document.getDocumentElement().normalize();
-
-
-
-//            for(int i = 0; i < nList.getLength(); i++) {
-//                Node child = nList.item(i);
-//                Element author = document.createElement("value");
-//                author.appendChild(document.createTextNode("foo"));
-//                child.appendChild(author);
-//
-////                if(child.getNodeType() == Node.ELEMENT_NODE) {
-////                    Element element = (Element) child;
-////
-////                    System.out.println(element.getElementsByTagName("id").item(0).getTextContent());
-////                }
-//
-//            }
-            document.getDocumentElement().normalize();
-
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-            transformer.setOutputProperty(OutputKeys.METHOD, "xml");
-            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
-            DOMSource source = new DOMSource(document);
-            StreamResult result = new StreamResult(new File("denkmaleTest.xml"));
-            transformer.transform(source, result);
-
-//            Node node = nodeList.item(0);
-//
-//            String servername = ((Element) nodeList.item(0)).getElementsByTagName("description").
-//                    item(1).getChildNodes().item(0).getNodeValue();
-//            Element element = ((Element) node).getElementsByTagName("denkmal");
-//            System.out.println(servername);
-
-//            NodeList nodeList = document.getElementsByTagName("denkmaeler");
-            //NodeList nodeList = node.getChildNodes();
-//            for(int i = 0; i < nodeList.getLength(); i++) {
-//                Node child = nodeList.item(i);
-//                Element element = (Element) child;
-//                Element childE = (Element) element.getElementsByTagName("id").item(0);
-//                String name = child.getLocalName();
-//                if(name != null && name.equals("denkmal")) {
-//                    System.out.println(child.getFirstChild());
-//                }
-//            }
-
-
-        } catch (ParserConfigurationException e ) {
-            System.out.println(e.getCause());
-        } catch (SAXException e) {
-            System.out.println(e.getMessage());
+            bufReader.close();
         } catch (IOException e) {
-            System.out.println(e.getMessage());
-        } catch (TransformerConfigurationException e) {
-            System.out.println(e.getMessage());
-        } catch (TransformerException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
-//        xmlFileFactory.enrichXML(file);
+
 
 //        AdressHelper adressHelper = new AdressHelper();
-//        System.out.println(adressHelper.getPostalCode("Spandau", "Brunsbüttler Damm"));
+//        xmlFileFactory.setDoc(file.getPath());
+//        xmlFileFactory.writeIntoXMLFile(file);
 //
-//
-//        try {
-//            //String search = ortsteil + " " + strasse;
-//            String searchURL = "http://www.bing.com/search?q=" + "Spandau Brundsbüttler Damm" + "&num=" + 1;
-//            //Document doc = Jsoup.connect(searchURL).timeout(30000).userAgent("Mozilla/5.0 (Windows; U; Windows NT 6.1; rv:2.2) Gecko/20110201").get();
-//            Document doc = Jsoup
-//                    .connect(searchURL)
-//                    .userAgent(
-//                            "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)")
-//                    .timeout(5000).get();
-//
-//
-//            Elements results = doc.select("h3.r > a");
-//            String postal = results.get(0).text();
-//            System.out.println(postal);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+//        adressHelper.getBodyInfo("09090494");
 
+//            XMLFile xmlFile = new XMLFile();
+//            xmlFile.setDoc(file.getPath());
+//            xmlFile.getDoc().getDocumentElement().normalize();
+//            String rootNode = xmlFile.getDoc().getDocumentElement().getNodeName();
+//            NodeList nodeList = xmlFile.getDoc().getElementsByTagName("denkmal");
+
+//            for(int i = 0; i < nodeList.getLength(); i++) {
+//                Node node = nodeList.item(i);
+//                xmlFile.addIdToAttributeAndRemoveIdElement(node);
+//            }
+
+//            Node first = nodeList.item(0);
+//            Element year = xmlFile.getDoc().createElement("year");
+//            year.appendChild(xmlFile.getDoc().createTextNode("1000"));
+//            first.appendChild(year);
+//
+//
+//            xmlFile.writeIntoXMLFile(file);
+
+//
 
 //	// write your code here
 //        String path = "DenkmallisteBerlin.txt";

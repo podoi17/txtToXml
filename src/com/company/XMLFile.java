@@ -21,12 +21,23 @@ public class XMLFile {
 
 
 
+    DocumentBuilderFactory documentBuilderFactory;
+    DocumentBuilder documentBuilder;
+    Document doc;
+
+    public XMLFile() {
+        try {
+            documentBuilderFactory  = DocumentBuilderFactory.newInstance();
+            documentBuilder = documentBuilderFactory.newDocumentBuilder();
+            doc = documentBuilder.newDocument();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
     public void createXML(List<Denkmal> denkmals) {
         try {
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.newDocument();
+
 
             Element rootElement = doc.createElement("denkmaeler");
             doc.appendChild(rootElement);
@@ -86,6 +97,59 @@ public class XMLFile {
         } catch (Exception e) {
             System.out.println(e.getCause());
         }
+    }
+
+    public void addIdToAttributeAndRemoveIdElement(Node node) {
+        try {
+            Element el = (Element) node;
+            Element idElement = (Element)el.getElementsByTagName("id").item(0);
+            String id = idElement.getTextContent();
+            Attr attribute = doc.createAttribute("id");
+            attribute.setValue(id);
+            el.setAttributeNode(attribute);
+            node.removeChild(idElement);
+        } catch (NullPointerException e) {
+            System.out.println("no element named id");
+        }
+
+    }
+
+    public Document getDoc() {
+        return doc;
+    }
+
+    public void setDoc(String docPath) {
+        try {
+            this.doc = documentBuilder.parse(docPath);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+    public void writeIntoXMLFile(File file) {
+        try {
+            doc.getDocumentElement().normalize();
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+            DOMSource source = new DOMSource(doc);
+            StreamResult result = new StreamResult(file);
+            transformer.transform(source, result);
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+    public void addBodys(Node node) {
+
+    }
+
+    public void addSubs(Node node) {
+
     }
 
     public void enrichXML(File file) {

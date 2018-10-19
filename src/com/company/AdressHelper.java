@@ -5,8 +5,10 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class AdressHelper {
 
@@ -14,7 +16,15 @@ public class AdressHelper {
     private  final String ortsteil = "Ortsteil: ";
     private  final String strasse = "Strasse: ";
     private final String hausnummer = "Hausnummer: ";
+    private final String entwurf = "Entwurf";
+    private final String datierung = "Datierung:";
+    private final String ausfuehrung = "Ausführung:";
+    private final String bauherr = "Bauherr:";
+    private final String sachbegriff = "Sachbegriff:";
+    private final String teilNr = "Teil-Nr.:";
     private Denkmal denkmal;
+
+
 
     public Denkmal getObjectDetails(String id) {
         try {
@@ -67,7 +77,13 @@ public class AdressHelper {
                 denkmal.setStreets(tempStreets);
             }
 
-            String postal = getPostalCode(tempOrtsTeil, tempStreets.get(0));
+            String postal;
+            if (!tempStreets.isEmpty()) {
+                postal = getPostalCode(tempOrtsTeil, tempStreets.get(0));
+            } else {
+                postal = getPostalCode(tempOrtsTeil, "");
+            }
+
             denkmal.setPostal(postal);
         } catch (Exception e) {
             System.out.println(e.getCause());
@@ -83,21 +99,24 @@ public class AdressHelper {
         String postal = "";
         try {
             String search = ortsteil + " " + strasse;
+            String searchURLBing= "http://www.bing.com/search?q=" + search + "&num=" + 1;
             String searchURL = "http://www.google.com/search?q=" + search + "&num=" + 1;
             //Document doc = Jsoup.connect(searchURL).timeout(30000).userAgent("Mozilla/5.0 (Windows; U; Windows NT 6.1; rv:2.2) Gecko/20110201").get();
             Document doc = Jsoup
                     .connect(searchURL)
                     .userAgent(
                             "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)")
-                    .timeout(5000).get();
-
+                    .timeout(50000).get();
 
             Elements results = doc.select("h3.r > a");
             postal = results.get(0).text();
-            postal = postal.substring(postal.length() - 12, postal.length());
-//            System.out.println("foo");
+            if(Pattern.compile("[0-9]+").matcher(postal).find()) {
+                postal = postal.substring(postal.length() - 12, postal.length());
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println(e.getCause());
             System.out.println(ortsteil + ", " + strasse);
         }
 
@@ -107,6 +126,37 @@ public class AdressHelper {
             return "-";
         }
 
+    }
+
+    public List<String> getBodyInfo(String id) {
+        List<String> newElements = new ArrayList<>();
+        try {
+            Document doc = Jsoup.connect("http://www.stadtentwicklung.berlin.de/denkmal/liste_karte_datenbank/de/denkmaldatenbank/daobj.php?obj_dok_nr=" + id).get();
+            Elements bodies = doc.select(".denkmal_detail_body tr");
+            Elements subs = doc.select(".denkmal_detail_sub");
+            if(subs.isEmpty()) {
+                for(Element element : bodies) {
+                    newElements.add(element.text());
+                }
+            } else {
+
+            }
+            for(String string: newElements) {
+                System.out.println(string);
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return newElements;
+    }
+
+    public List<String> getSubInfo(String id) {
+        return null;
+    }
+
+    public String getDetaliText(String id) {
+        return null;
     }
 
 

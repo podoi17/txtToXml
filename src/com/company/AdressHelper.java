@@ -16,12 +16,14 @@ public class AdressHelper {
     private  final String ortsteil = "Ortsteil: ";
     private  final String strasse = "Strasse: ";
     private final String hausnummer = "Hausnummer: ";
-    private final String entwurf = "Entwurf";
+    private final String entwurf = "Entwurf:";
     private final String datierung = "Datierung:";
     private final String ausfuehrung = "Ausführung:";
     private final String bauherr = "Bauherr:";
     private final String sachbegriff = "Sachbegriff:";
     private final String teilNr = "Teil-Nr.:";
+    private final String literatur = "Literatur:";
+    private final String umbau = "Umbau:";
     private Denkmal denkmal;
 
 
@@ -134,14 +136,35 @@ public class AdressHelper {
             Elements bodies = doc.select(".denkmal_detail_body tr");
             Elements subs = doc.select(".denkmal_detail_sub");
             if(subs.isEmpty()) {
-                for(Element element : bodies) {
-                    newElements.add(element.text());
+                try {
+                    for(Element element : bodies) {
+                        String text = element.text();
+                        if(text.contains(entwurf)) {
+                            text = text.replace(entwurf, "design:");
+                        }
+                        if(text.contains(datierung)) {
+                            text = text.replace(datierung, "date:");
+                        }
+                        if(text.contains(ausfuehrung)) {
+                            text = text.replace(ausfuehrung, "execution:");
+                        }
+                        if(text.contains(bauherr)) {
+                            text = text.replace(bauherr, "builder-owner:");
+                        }
+                        if(text.contains(literatur)) {
+                            text = text.replace(literatur, "literature:");
+                        }
+                        if(text.contains(umbau)) {
+                            text = text.replace(umbau, "reconstruction:");
+                        }
+                        newElements.add(text);
+                    }
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println(bodies.text());
                 }
+
             } else {
 
-            }
-            for(String string: newElements) {
-                System.out.println(string);
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -156,6 +179,19 @@ public class AdressHelper {
 
     public String getDetaliText(String id) {
         return null;
+    }
+
+    public void checkForSub(String id) {
+        try {
+            Document doc = Jsoup.connect("http://www.stadtentwicklung.berlin.de/denkmal/liste_karte_datenbank/de/denkmaldatenbank/daobj.php?obj_dok_nr=" + id).get();
+            Elements subs = doc.select(".denkmal_detail_sub");
+            if(!subs.isEmpty()) {
+                System.out.println(subs);
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
 

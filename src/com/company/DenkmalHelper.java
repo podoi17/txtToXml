@@ -7,10 +7,11 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class AdressHelper {
+public class DenkmalHelper {
 
     private  final String bezirk = "Bezirk: ";
     private  final String ortsteil = "Ortsteil: ";
@@ -169,29 +170,90 @@ public class AdressHelper {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-
         return newElements;
     }
 
-    public List<String> getSubInfo(String id) {
-        return null;
-    }
-
-    public String getDetaliText(String id) {
-        return null;
-    }
-
-    public void checkForSub(String id) {
+    public void getBodyTest(String id) {
         try {
             Document doc = Jsoup.connect("http://www.stadtentwicklung.berlin.de/denkmal/liste_karte_datenbank/de/denkmaldatenbank/daobj.php?obj_dok_nr=" + id).get();
-            Elements subs = doc.select(".denkmal_detail_sub");
-            if(!subs.isEmpty()) {
-                System.out.println(subs);
+            Elements bodies = doc.select(".denkmal_detail_body");
+            Element body = bodies.get(2);
+            Elements els = body.getElementsByTag("tr");
+            for(Element el : els) {
+                System.out.println(el.text());
+            }
+
+//            for(int i = 0; i < bodies.size(); i++) {
+//                System.out.println(bodies.get(i));
+//            }
+        } catch (IOException e) {
+
+        }
+    }
+
+
+    public String getDetaliText(String id) {
+        String text = "";
+        try {
+            Document doc = Jsoup.connect("http://www.stadtentwicklung.berlin.de/denkmal/liste_karte_datenbank/de/denkmaldatenbank/daobj.php?obj_dok_nr=" + id).get();
+            Elements detailText = doc.select(".denkmal_detail_text p");
+            for(Element element : detailText) {
+                text = text + element.text();
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+        return text;
+    }
 
+    //evtl todo
+//    public HashMap<String, List<String>> checkForSub(String id) {
+//        HashMap<String, List<String>> subInfos = new HashMap<>();
+//        try {
+//            Document doc = Jsoup.connect("http://www.stadtentwicklung.berlin.de/denkmal/liste_karte_datenbank/de/denkmaldatenbank/daobj.php?obj_dok_nr=" + id).get();
+//            Elements subs = doc.select(".denkmal_detail_sub");
+//            int subsLength = subs.size();
+//            Elements bodies = doc.select(".denkmal_detail_body");
+//            int bodiesLength = bodies.size();
+//            int startBodyForSubs = bodiesLength % subsLength;
+//            if(!subs.isEmpty()) {
+//                for(int i = startBodyForSubs; i < bodiesLength; i++) {
+//                    String key = subs.get(i - startBodyForSubs).text();
+//                    Element subBody = bodies.get(i);
+//                    Elements subBodyElements = subBody.getElementsByTag("tr");
+//                    List<String> temp = new ArrayList<>();
+//                    for(Element el : subBodyElements) {
+//                        temp.add(el.text());
+//                    }
+//                    subInfos.put(key, temp);
+//                }
+//             }
+//        } catch (IOException e) {
+//            System.out.println(e.getMessage());
+//        }
+//        return subInfos;
+//    }
+
+    public void saveImages(String id) {
+
+    }
+
+    public List<String> getImageLinks(String id) {
+        String link = "http://www.stadtentwicklung.berlin.de/denkmal/liste_karte_datenbank/de/denkmaldatenbank/";
+        List<String> images = new ArrayList<>();
+        try {
+            Document doc = Jsoup.connect("http://www.stadtentwicklung.berlin.de/denkmal/liste_karte_datenbank/de/denkmaldatenbank/daobj.php?obj_dok_nr=" + id).get();
+            Elements elements = doc.select(".denkmal_detail_img a");
+            for(Element el : elements) {
+                String attr = el.attr("href");
+                String temp = link + attr;
+                images.add(temp);
+            }
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage() + " " + id);
+        }
+        return images;
     }
 
 

@@ -193,14 +193,16 @@ public class XMLFile {
 
     }
 
-    public void getElementIds(String tagName, String attributeItem) {
+    public List<String> getElementIds(String tagName, String attributeItem) {
+        List<String> ids = new ArrayList<>();
         NodeList nodeList = this.doc.getElementsByTagName(tagName);
         List<String> attributList = new ArrayList<>();
         for(int i = 0; i < nodeList.getLength(); i++) {
             Node node = nodeList.item(i);
             String id = node.getAttributes().getNamedItem(attributeItem).getTextContent();
-
+            ids.add(id);
         }
+        return ids;
     }
 
     public void addElement(Node node, String element, String textNode) {

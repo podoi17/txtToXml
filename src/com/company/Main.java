@@ -1,14 +1,29 @@
 package com.company;
 
+
+
+
+
+
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.jsoup.Jsoup;
+
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.parser.Parser;
 import org.jsoup.select.Elements;
+import org.omg.CORBA.OBJ_ADAPTER;
 
 
+import javax.sound.midi.Soundbank;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.sql.SQLOutput;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
@@ -21,18 +36,44 @@ public class Main {
 
         geoCoordinatesHelper.getCoordinates("Innsbrucker Straße 37 Falkensee");
 
-        String url = "http://nominatim.openstreetmap.org/search?q=Innsbrucker+Straße+37+Falkensee&format=json&addressdetails=1";
+        String url = "https://nominatim.openstreetmap.org/search/gb/birmingham/pilkington%20avenue/135?format=xml&polygon=1&addressdetails=1";
+
+        String url1 = "https://nominatim.openstreetmap.org/search/Unter%20den%20Linden%201%20Berlin?format=json&addressdetails=1&limit=1&polygon_svg=1";
+
 
 
         try {
 
-           Document document = Jsoup.connect(url).get();
-           Elements elements = document.select("body");
-           for(Element el: elements) {
-               System.out.println(el.text());
-           }
-        } catch (Exception e) {
 
+
+           String json = Jsoup.connect(url1).ignoreContentType(true).execute().body();
+           System.out.println(json);
+
+
+            JSONParser jsonParser = new JSONParser();
+            JSONArray jsonArray = (JSONArray) jsonParser.parse(json);
+            System.out.println(jsonArray.get(0));
+            JSONObject jsonObject = (JSONObject) jsonArray.get(0);
+            System.out.println(jsonObject.get("lat"));
+            System.out.println(jsonObject.get("lon"));
+
+            List<String> list = new ArrayList<>();
+            for(int i = 0; i < jsonArray.size(); i++) {
+                list.add(jsonArray.get(i).toString());
+            }
+            System.out.println(jsonArray.toString());
+
+
+
+
+
+//           Document document = Jsoup.parse(new URL(url).openStream(), "UTF-8", "", Parser.xmlParser());
+//           Elements elements = document.select("place");
+//           for(Element el: elements) {
+//               System.out.println(el.text());
+//           }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
 
 

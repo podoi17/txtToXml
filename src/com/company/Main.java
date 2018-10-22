@@ -1,18 +1,14 @@
 package com.company;
 
-import org.w3c.dom.*;
-import org.xml.sax.SAXException;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.*;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
+
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
 
 public class Main {
@@ -21,55 +17,111 @@ public class Main {
 
 
 
-        XMLFile xmlFileFactory = new XMLFile();
+        GeoCoordinatesHelper geoCoordinatesHelper = new GeoCoordinatesHelper();
 
-        File file = new File("denkmaleTest.xml");
+        geoCoordinatesHelper.getCoordinates("Innsbrucker Straße 37 Falkensee");
+
+        String url = "http://nominatim.openstreetmap.org/search?q=Innsbrucker+Straße+37+Falkensee&format=json&addressdetails=1";
 
 
         try {
-            Reader fileReader = new FileReader(file);
-            BufferedReader bufReader = new BufferedReader(fileReader);
 
-            StringBuilder sb = new StringBuilder();
-            String line = bufReader.readLine();
-            while( line != null){
-                line = bufReader.readLine();
+           Document document = Jsoup.connect(url).get();
+           Elements elements = document.select("body");
+           for(Element el: elements) {
+               System.out.println(el.text());
+           }
+        } catch (Exception e) {
 
-            }
-            String xml2String = sb.toString();
-            System.out.println("XML to String using BufferedReader : ");
-            System.out.println(xml2String);
-
-            bufReader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
 
-//        AdressHelper adressHelper = new AdressHelper();
+//        XMLFile xmlFileFactory = new XMLFile();
+//
+//        File file = new File("denkmaleTemp.xml");
+//
+//
+//        DenkmalHelper denkmalHelper = new DenkmalHelper();
 //        xmlFileFactory.setDoc(file.getPath());
 //        xmlFileFactory.writeIntoXMLFile(file);
 //
-//        adressHelper.getBodyInfo("09090494");
+////        denkmalHelper.getBodyInfo("09090325");
+//
+//
+//
+//        NodeList nodeList = xmlFileFactory.getDoc().getElementsByTagName("denkmal");
+//        String rootNode = xmlFileFactory.getDoc().getDocumentElement().getNodeName();
+//        Node root = xmlFileFactory.getDoc().getDocumentElement();
+//        Document document = root.getOwnerDocument();
 
-//            XMLFile xmlFile = new XMLFile();
-//            xmlFile.setDoc(file.getPath());
-//            xmlFile.getDoc().getDocumentElement().normalize();
-//            String rootNode = xmlFile.getDoc().getDocumentElement().getNodeName();
-//            NodeList nodeList = xmlFile.getDoc().getElementsByTagName("denkmal");
 
-//            for(int i = 0; i < nodeList.getLength(); i++) {
-//                Node node = nodeList.item(i);
-//                xmlFile.addIdToAttributeAndRemoveIdElement(node);
+
+
+
+        //funkst!!!
+//        for(int i = 0; i < nodeList.getLength(); i++) {
+//            Node node = nodeList.item(i);
+//            String id = node.getAttributes().getNamedItem("id").getTextContent();
+//            List<String> newInfos = denkmalHelper.getBodyInfo(id);
+//            if(id.equals("09030948")) {
+//                System.out.println("foo");
 //            }
+//            for(String info: newInfos) {
+//                String[] temp = info.split(":");
+//                try {
+//                    xmlFileFactory.addElement(node, temp[0], temp[1]);
+//                } catch (ArrayIndexOutOfBoundsException e) {
+//                    System.out.println(id);
+//                }
+//            }
+//            String detailText = denkmalHelper.getDetaliText(id);
+//            xmlFileFactory.addElement(node, "text", detailText);
+//            List<String> imageLinks = denkmalHelper.getImageLinks(id);
+//            for(String imageLink : imageLinks) {
+//                xmlFileFactory.addElement(node, "image", imageLink);
+//            }
+//        }
+//
+//
+//        xmlFileFactory.writeIntoXMLFile(file);
+//        String temp = xmlFileFactory.convertXMLFileToString(file);
+//        xmlFileFactory.convertStringToDocument(temp);
+//        xmlFileFactory.writeIntoXMLFile(file);
 
-//            Node first = nodeList.item(0);
-//            Element year = xmlFile.getDoc().createElement("year");
-//            year.appendChild(xmlFile.getDoc().createTextNode("1000"));
-//            first.appendChild(year);
+
+//        List<String> foo = denkmalHelper.getBodyInfo("09030947");
+//        System.out.println(foo.size());
+//        Node node = xmlFileFactory.getNode("09030947");
+//        for(String bar: foo) {
+//            xmlFileFactory.addElement(node, "foo", bar);
+//        }
+//
+//        System.out.println(node.getTextContent());
+
+
+
+
+
+
+
+//        XMLFile xmlFile = new XMLFile();
+//        xmlFile.setDoc(file.getPath());
+//        xmlFile.getDoc().getDocumentElement().normalize();
+//        String rootNode = xmlFile.getDoc().getDocumentElement().getNodeName();
+//        NodeList nodeList = xmlFile.getDoc().getElementsByTagName("denkmal");
+//
+//        for (int i = 0; i < nodeList.getLength(); i++) {
+//            Node node = nodeList.item(i);
+//            xmlFile.addIdToAttributeAndRemoveIdElement(node);
+//        }
+//
+//        Node first = nodeList.item(0);
+//        Element year = xmlFile.getDoc().createElement("year");
+//        year.appendChild(xmlFile.getDoc().createTextNode("1000"));
+//        first.appendChild(year);
 //
 //
-//            xmlFile.writeIntoXMLFile(file);
+//        xmlFile.writeIntoXMLFile(file);
 
 //
 
@@ -78,14 +130,14 @@ public class Main {
 //        TXTService transform = new TXTService(path);
 //        transform.getObjectIDS();
 //        HashSet<String> ids = transform.getObjectIDS();
-//        AdressHelper adressHelper = new AdressHelper();
+//        DenkmalHelper denkmalHelper = new DenkmalHelper();
 //        List<Denkmal> denkmals = new ArrayList<>();
 //        double counterID = 0.0;
 //        double percentageID = 0.1;
 //        int icounter = 0;
 //        Iterator iterator = ids.iterator();
 //        while(iterator.hasNext()) {
-//            Denkmal denkmal = adressHelper.getObjectDetails(iterator.next().toString());
+//            Denkmal denkmal = denkmalHelper.getObjectDetails(iterator.next().toString());
 //            denkmals.add(denkmal);
 //            if(counterID % 100 == 0) {
 //                System.out.println(counterID + " details generated");

@@ -1,6 +1,7 @@
 package com.company;
 
 import org.w3c.dom.*;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -12,8 +13,12 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import java.io.File;
-import java.io.IOException;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -33,6 +38,11 @@ public class XMLFile {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+
+    public void createNewXML(Element element) {
+        this.doc.appendChild(element);
     }
 
     public void createXML(List<Denkmal> denkmals) {
@@ -99,17 +109,17 @@ public class XMLFile {
         }
     }
 
-    public void addIdToAttributeAndRemoveIdElement(Node node) {
+    public void addIdToAttributeAndRemoveIdElement(Node node, String tagName, int elementIndex) {
         try {
             Element el = (Element) node;
-            Element idElement = (Element)el.getElementsByTagName("id").item(0);
+            Element idElement = (Element)el.getElementsByTagName(tagName).item(elementIndex);
             String id = idElement.getTextContent();
-            Attr attribute = doc.createAttribute("id");
+            Attr attribute = doc.createAttribute(tagName);
             attribute.setValue(id);
             el.setAttributeNode(attribute);
             node.removeChild(idElement);
         } catch (NullPointerException e) {
-            System.out.println("no element named id");
+            System.out.println("no element named: " + tagName);
         }
 
     }
@@ -144,6 +154,37 @@ public class XMLFile {
 
     }
 
+    public String convertXMLFileToString(File file) {
+        String xml2String = "";
+        try {
+            Reader fileReader = new FileReader(file);
+            BufferedReader bufReader = new BufferedReader(fileReader);
+
+            StringBuilder sb = new StringBuilder();
+            String line = bufReader.readLine();
+            while ((line = bufReader.readLine()) != null) {
+                sb.append(line.trim());
+
+            }
+            xml2String = sb.toString();
+            bufReader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return xml2String;
+    }
+
+
+    public void convertStringToDocument(String xmlString) {
+        try {
+            doc = documentBuilder.parse(new InputSource(new StringReader(xmlString)));
+        } catch (SAXException e) {
+            System.out.println(e.getMessage());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public void addBodys(Node node) {
 
     }
@@ -152,33 +193,37 @@ public class XMLFile {
 
     }
 
+    public List<String> getElementIds(String tagName, String attributeItem) {
+        List<String> ids = new ArrayList<>();
+        NodeList nodeList = this.doc.getElementsByTagName(tagName);
+        List<String> attributList = new ArrayList<>();
+        for(int i = 0; i < nodeList.getLength(); i++) {
+            Node node = nodeList.item(i);
+            String id = node.getAttributes().getNamedItem(attributeItem).getTextContent();
+            ids.add(id);
+        }
+        return ids;
+    }
+
+    public void addElement(Node node, String element, String textNode) {
+        Element el = this.doc.createElement(element);
+        el.appendChild(this.doc.createTextNode(textNode));
+        node.appendChild(el);
+
+    }
+    public Node getNode(String id) {
+        XPath xPath = XPathFactory.newInstance().newXPath();
+        String expression = "/denkmaeler/denkmal[@id=" + "'" + id + "'" + "]";
+        Node node = null;
+        try {
+            node = (Node) xPath.compile(expression).evaluate(this.doc, XPathConstants.NODE);
+        } catch (XPathExpressionException e) {
+
+        }
+        return node;
+    }
+
     public void enrichXML(File file) {
-//        try {
-//            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-//            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-//            Document document = documentBuilder.parse(file.getAbsolutePath());
-//
-//
-//            NodeList nodeList = document.getElementsByTagName("denkmaeler");
-//            //NodeList nodeList = node.getChildNodes();
-//            for(int i = 0; i < nodeList.getLength(); i++) {
-//                Node child = nodeList.item(i);
-//                Element element = (Element) child;
-//                Element childE = (Element) element.getElementsByTagName("id").item(0);
-//                String name = child.getLocalName();
-//                if(name != null && name.equals("denkmal")) {
-//                    System.out.println(child.getFirstChild());
-//                }
-//            }
-//
-//
-//        } catch (ParserConfigurationException e ) {
-//            System.out.println(e.getCause());
-//        } catch (SAXException e) {
-//            System.out.println(e.getMessage());
-//        } catch (IOException e) {
-//            System.out.println(e.getMessage());
-//        }
 
 
     }

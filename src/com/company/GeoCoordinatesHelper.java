@@ -1,6 +1,6 @@
 package com.company;
 
-import jdk.nashorn.internal.parser.JSONParser;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;

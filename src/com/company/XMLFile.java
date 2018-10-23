@@ -227,4 +227,12 @@ public class XMLFile {
 
 
     }
+    //Elemente auslesen
+//    xmlFileFactory.setDoc(file.getPath());
+//    NodeList nodeList = xmlFileFactory.getDoc().getElementsByTagName("denkmaeler");
+//            System.out.println(xmlFileFactory.getDoc().getDocumentElement().getNodeName());
+//    NodeList nlist = xmlFileFactory.getDoc().getElementsByTagName("denkmal");
+//    Node node = nlist.item(0);
+//    Element element = (Element) node;
+//            System.out.println(element.getElementsByTagName("location").item(0).getTextContent());
 }

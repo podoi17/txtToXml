@@ -12,10 +12,13 @@ import org.json.simple.parser.JSONParser;
 import org.jsoup.Jsoup;
 
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
+
 import org.jsoup.parser.Parser;
 import org.jsoup.select.Elements;
-import org.omg.CORBA.OBJ_ADAPTER;
+
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 
 import javax.sound.midi.Soundbank;
@@ -38,15 +41,45 @@ public class Main {
 
         String url = "https://nominatim.openstreetmap.org/search/gb/birmingham/pilkington%20avenue/135?format=xml&polygon=1&addressdetails=1";
 
-        String url1 = "https://nominatim.openstreetmap.org/search/Unter%20den%20Linden%201%20Berlin?format=json&addressdetails=1&limit=1&polygon_svg=1";
+
 
 
 
         try {
 
+            XMLFile xmlFileFactory = new XMLFile();
 
+            File file = new File("denkmaleTemp.xml");
 
+            xmlFileFactory.setDoc(file.getPath());
+            NodeList nodeList = xmlFileFactory.getDoc().getElementsByTagName("denkmaeler");
+            System.out.println(xmlFileFactory.getDoc().getDocumentElement().getNodeName());
+            NodeList nlist = xmlFileFactory.getDoc().getElementsByTagName("denkmal");
+            Node node = nlist.item(0);
+            Element element = (Element) node;
+            String location = element.getElementsByTagName("location").item(0).getTextContent();
+            String street = element.getElementsByTagName("street").item(0).getTextContent();
+            location = location.replace(" ", "%20");
+            street = street.replace(" ", "%20");
+            String startURL = "https://nominatim.openstreetmap.org/search/";
+            String endURL = "?format=json&addressdetails=1&limit=1&polygon_svg=1";
+            String urlT = startURL + street + location + endURL;
+            System.out.println(urlT);
+
+            Node root = xmlFileFactory.getDoc().getFirstChild();
+
+            NodeList nodeList1 = root.getChildNodes();
+            Node child = nodeList1.item(0);
+            System.out.println(child.getTextContent());
+
+            String foo = "https://nominatim.openstreetmap.org/search?q=135+pilkington+avenue,+birmingham&format=xml&polygon=1&addressdetails=1";
+            String url1 = "https://nominatim.openstreetmap.org/search/Unter%20den%20Linden%201%20Berlin?format=json&addressdetails=1&limit=1&polygon_svg=1";
+
+            Document doc = Jsoup.parse(new URL(url).openStream(), "UTF-8", "", Parser.xmlParser());
+            System.out.println(doc.body());
            String json = Jsoup.connect(url1).ignoreContentType(true).execute().body();
+
+
            System.out.println(json);
 
 
@@ -56,12 +89,12 @@ public class Main {
             JSONObject jsonObject = (JSONObject) jsonArray.get(0);
             System.out.println(jsonObject.get("lat"));
             System.out.println(jsonObject.get("lon"));
-
-            List<String> list = new ArrayList<>();
-            for(int i = 0; i < jsonArray.size(); i++) {
-                list.add(jsonArray.get(i).toString());
-            }
-            System.out.println(jsonArray.toString());
+//
+//            List<String> list = new ArrayList<>();
+//            for(int i = 0; i < jsonArray.size(); i++) {
+//                list.add(jsonArray.get(i).toString());
+//            }
+//            System.out.println(jsonArray.toString());
 
 
 

@@ -1,5 +1,9 @@
 package com.company;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -7,7 +11,6 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -18,13 +21,30 @@ public class DenkmalHelper {
     private  final String strasse = "Strasse: ";
     private final String hausnummer = "Hausnummer: ";
     private final String entwurf = "Entwurf:";
+    private final String ausfuehrungUndEntwurfSpecial = "Ausführung & Entwurf (?):";
+    private final String entwurfUndAusfuehrungSpecial = "Entwurf & Ausführung (?):";
+    private final String entwurfUndAusfuerungSpecialSecond = "Entwurf (?) & Ausführung (?):";
+    private final String entwurfUndAusfuehrungSpecialThird = "Entwurf & Ausführung?:";
+    private final String entwurfUndAusfuehrung = "Entwurf & Ausführung:";
+    private final String entwurfUndAusfuehrungUndBauherrSpecial = "Entwurf & Ausführung (?) & Bauherr:";
+    private final String entwurfUndAusfuehrungUndBauherr = "Entwurf & Ausführung & Bauherr:";
+    private final String entwurfUndBauherrSpecial = "Entwurf (?) & Bauherr:";
+    private final String entwurfUndBauherr = "Entwurf & Bauherr:";
+    private final String ausfuehrungUndBauherr = "Ausführung & Bauherr:";
+    private final String bauherrUndAusfuehrung = "Bauherr & Ausführung:";
+    private final String entwurfUndBaubeginn = "Entwurf & Baubeginn:";
+    private final String entwurfUndDatierung = "Entwurf & Datierung:";
+    private final String designSpecial = "Entwurf (?):";
     private final String datierung = "Datierung:";
+    private final String ausfuehrungSpecial = "Ausführung (?):";
     private final String ausfuehrung = "Ausführung:";
+    private final String bauherrSpecial = "Bauherr (?):";
     private final String bauherr = "Bauherr:";
     private final String sachbegriff = "Sachbegriff:";
     private final String teilNr = "Teil-Nr.:";
     private final String literatur = "Literatur:";
     private final String umbau = "Umbau:";
+    private final String undefined = "---:";
     private Denkmal denkmal;
 
 
@@ -141,14 +161,65 @@ public class DenkmalHelper {
                 try {
                     for(Element element : bodies) {
                         String text = element.text();
+                        if(text.contains(undefined)) {
+                            text = text.replace(undefined, "undefined:");
+                        }
+                        if(text.contains(entwurfUndAusfuehrungUndBauherrSpecial)) {
+                            text = text.replace(entwurfUndAusfuehrungUndBauherrSpecial, "architect-execution-builder-owner:");
+                        }
+                        if(text.contains(entwurfUndAusfuehrungUndBauherr)) {
+                            text = text.replace(entwurfUndAusfuehrungUndBauherr, "architect-execution-builder-owner:");
+                        }
+                        if(text.contains(ausfuehrungUndEntwurfSpecial)) {
+                            text = text.replace(ausfuehrungUndEntwurfSpecial, "architect-execution:");
+                        }
+                        if(text.contains(entwurfUndAusfuerungSpecialSecond)) {
+                            text = text.replace(entwurfUndAusfuerungSpecialSecond, "architect-execution:");
+                        }
+                        if(text.contains(entwurfUndAusfuehrungSpecialThird)) {
+                            text = text.replace(entwurfUndAusfuehrungSpecialThird, "architect-execution:");
+                        }
+                        if(text.contains(entwurfUndAusfuehrungSpecial)) {
+                            text = text.replace(entwurfUndAusfuehrungSpecial, "architect-execution:");
+                        }
+                        if(text.contains(entwurfUndAusfuehrung)) {
+                            text = text.replace(entwurfUndAusfuehrung, "architect-execution:");
+                        }
+                        if(text.contains(entwurfUndBauherrSpecial)) {
+                            text = text.replace(entwurfUndBauherrSpecial, "architect-builder-owner:");
+                        }
+                        if(text.contains(entwurfUndBauherr)) {
+                            text = text.replace(entwurfUndBauherr,"architect-builder-owner:");
+                        }
+                        if(text.contains(ausfuehrungUndBauherr)) {
+                            text = text.replace(ausfuehrungUndBauherr, "execution-builder-owner:");
+                        }
+                        if(text.contains(bauherrUndAusfuehrung)) {
+                            text = text.replace(bauherrUndAusfuehrung, "execution-builder-owner");
+                        }
+                        if(text.contains(entwurfUndBaubeginn)) {
+                            text = text.replace(entwurfUndBaubeginn, "architect-start-of-construction:");
+                        }
+                        if(text.contains(entwurfUndDatierung)) {
+                            text = text.replace(entwurfUndDatierung, "architect-date");
+                        }
+                        if(text.contains(designSpecial)) {
+                            text = text.replace(designSpecial, "architect:");
+                        }
                         if(text.contains(entwurf)) {
-                            text = text.replace(entwurf, "design:");
+                            text = text.replace(entwurf, "architect:");
                         }
                         if(text.contains(datierung)) {
                             text = text.replace(datierung, "date:");
                         }
+                        if(text.contains(ausfuehrungSpecial)) {
+                            text = text.replace(ausfuehrungSpecial, "execution:");
+                        }
                         if(text.contains(ausfuehrung)) {
                             text = text.replace(ausfuehrung, "execution:");
+                        }
+                        if(text.contains(bauherrSpecial)) {
+                            text = text.replace(bauherrSpecial, "builder-owner:");
                         }
                         if(text.contains(bauherr)) {
                             text = text.replace(bauherr, "builder-owner:");
@@ -159,6 +230,7 @@ public class DenkmalHelper {
                         if(text.contains(umbau)) {
                             text = text.replace(umbau, "reconstruction:");
                         }
+
                         newElements.add(text);
                     }
                 } catch (ArrayIndexOutOfBoundsException e) {
@@ -256,6 +328,82 @@ public class DenkmalHelper {
         }
         return images;
     }
+
+    public String convertStreetForGeoData(String street) {
+        street = street.replace(":", "");
+        street = street.replace("&", ",");
+        String[] temp = street.split(",");
+        return temp[0];
+    }
+
+    public String convertLocationForGeoData(String location) {
+        String controll = "- ";
+        if(location.length() > 2 && controll.equals(location.substring(0, 2))) {
+            location = location.substring(2, location.length());
+        }
+        return location;
+    }
+
+    public String[] openStreetMapSearch(String url ) throws IOException, ParseException, IndexOutOfBoundsException {
+        String[] latiLongi = new String [2];
+        String json = Jsoup.connect(url).ignoreContentType(true).execute().body();
+        JSONParser jsonParser = new JSONParser();
+        JSONArray jsonArray = (JSONArray) jsonParser.parse(json);
+        if(jsonArray.size() > 0) {
+            JSONObject jsonObject = (JSONObject) jsonArray.get(0);
+            String lati = jsonObject.get("lat").toString();
+            String longi = jsonObject.get("lon").toString();
+            latiLongi[0] = lati;
+            latiLongi[1] = longi;
+        } else {
+            latiLongi[0] = "";
+            latiLongi[1] = "";
+        }
+        return latiLongi;
+    }
+
+    public String[] getGeoData(String location, String street) {
+        String[] geoData = new String[2];
+        if(location.contains("Berlin")) {
+            location = location.substring(0, 12);
+        }
+        if(location != null && street != null) {
+            location = location.replace(" ", "%20");
+            street = street.replace(" ", "%20");
+            location = convertLocationForGeoData(location);
+            street = convertStreetForGeoData(street);
+            String startURL = "https://nominatim.openstreetmap.org/search/";
+            String endURL = "?format=json&addressdetails=1&limit=1&polygon_svg=1";
+            String url = startURL + street + "%20" + location + "%20"+ endURL;
+            try {
+                geoData = openStreetMapSearch(url);
+                if(geoData[0] == "" && geoData[1] == "") {
+                    String urlAlternative = startURL + street + "%20" + "Berlin" + "%20"+ endURL;
+                    geoData = openStreetMapSearch(urlAlternative);
+                }
+            } catch (IOException e) {
+                System.out.println("IOexecpt geworfen " + street + " " + location);
+                geoData[0] = "-1";
+                geoData[1] = "-1";
+                return geoData;
+            } catch (ParseException e) {
+                System.out.println("ParseException " + street + " " + location);
+                geoData[0] = "-1";
+                geoData[1] = "-1";
+                return geoData;
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("IndexOutOufBounds " + street + " " + location);
+                geoData[0] = "-1";
+                geoData[1] = "-1";
+                return geoData;
+            }
+        }
+        return geoData;
+    }
+
+// Ort durch berlin ersetzen
+    // leere suche ignorieren
+
 
 
 

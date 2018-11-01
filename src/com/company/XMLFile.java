@@ -29,12 +29,14 @@ public class XMLFile {
     DocumentBuilderFactory documentBuilderFactory;
     DocumentBuilder documentBuilder;
     Document doc;
+    DenkmalHelper denkmalHelper;
 
     public XMLFile() {
         try {
             documentBuilderFactory  = DocumentBuilderFactory.newInstance();
             documentBuilder = documentBuilderFactory.newDocumentBuilder();
             doc = documentBuilder.newDocument();
+            denkmalHelper = new DenkmalHelper();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -223,10 +225,74 @@ public class XMLFile {
         return node;
     }
 
-    public void enrichXML(File file) {
 
+    public String getTextValueFromElement(Node node, String elementTagName, int itemIndex) {
+        Element element = (Element) node;
+        String value = "";
+        try {
+            value = element.getElementsByTagName(elementTagName).item(itemIndex).getTextContent();
+        } catch (NullPointerException e) {
+            return e.getMessage();
+        }
+        return value;
+    }
+
+    public void convertToProperXMLFile(File file) {
+        writeIntoXMLFile(file);
+        String temp = convertXMLFileToString(file);
+        convertStringToDocument(temp);
+        writeIntoXMLFile(file);
+    }
+
+    public void createNewXMLFile(NodeList nodeList) {
+        int counter = 0;
+        String idTemp = "";
+        try {
+            for (int i = 0; i < nodeList.getLength(); i++) {
+                if(counter == 68) {
+                    System.out.println(counter);
+                }
+                Node node = nodeList.item(i);
+                String id = node.getAttributes().getNamedItem("id").getTextContent();
+                idTemp = id;
+                List<String> newInfos = denkmalHelper.getBodyInfo(id);
+                if (id.equals("09070129")) {
+                    System.out.println("foo");
+                }
+                for (String info : newInfos) {
+                    String[] temp = info.split(":");
+                    if(temp.length == 2) {
+                        addElement(node, temp[0], temp[1]);
+                    }
+                }
+                String detailText = denkmalHelper.getDetaliText(id);
+                addElement(node, "text", detailText);
+                List<String> imageLinks = denkmalHelper.getImageLinks(id);
+                for (String imageLink : imageLinks) {
+                    addElement(node, "image", imageLink);
+                }
+
+                Element element = (Element) node;
+                String location = getTextValueFromElement(element, "location", 0);
+                String street = getTextValueFromElement(element, "street", 0);
+                String[] latiLongi = denkmalHelper.getGeoData(location, street);
+                String latitude = latiLongi[0];
+                String longitude = latiLongi[1];
+                addElement(node,"latitude", latitude);
+                addElement(node, "longitude", longitude);
+                if(counter % 100 == 0) {
+                    System.out.println(counter);
+                }
+                counter = counter + 1;
+
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            System.out.println(idTemp);
+        }
 
     }
+
     //Elemente auslesen
 //    xmlFileFactory.setDoc(file.getPath());
 //    NodeList nodeList = xmlFileFactory.getDoc().getElementsByTagName("denkmaeler");

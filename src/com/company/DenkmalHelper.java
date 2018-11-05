@@ -31,13 +31,16 @@ public class DenkmalHelper {
     private final String entwurfUndAusfuehrung = "Entwurf & Ausführung:";
     private final String entwurfUndAusfuehrungUndBauherrSpecial = "Entwurf & Ausführung (?) & Bauherr:";
     private final String entwurfUndAusfuehrungUndBauherr = "Entwurf & Ausführung & Bauherr:";
+    private final String entwurfUndBaubeginnUndFertigstellung = "Entwurf & Baubeginn & Fertigstellung:";
     private final String bauherrUndEntwurfUndAusführung = "Bauherr & Entwurf & Ausführung:";
     private final String entwurfUndBauherrSpecial = "Entwurf (?) & Bauherr:";
+    private final String entwurfUndFertigstellung = "Entwurf & Fertigstellung:";
     private final String entwurfUndBauherr = "Entwurf & Bauherr:";
     private final String bauherrUndEntwurf = "Bauherr & Entwurf:";
     private final String ausfuehrungUndBauherr = "Ausführung & Bauherr:";
     private final String ausfuehrungUndBauherrSpecial = "Ausführung (?) & Bauherr:";
     private final String bauherrUndAusfuehrung = "Bauherr & Ausführung:";
+    private final String planungUndAusführung = "Planung & Ausführung:";
     private final String entwurfUndBaubeginn = "Entwurf & Baubeginn:";
     private final String entwurfUndDatierung = "Entwurf & Datierung:";
     private final String designSpecial = "Entwurf (?):";
@@ -197,11 +200,17 @@ public class DenkmalHelper {
                         if(text.contains(entwurfUndAusfuehrungSpecial)) {
                             text = text.replace(entwurfUndAusfuehrungSpecial, "architect-execution:");
                         }
+                        if(text.contains(entwurfUndBaubeginnUndFertigstellung)) {
+                            text = text.replace(entwurfUndBaubeginnUndFertigstellung, "design-start-of-execution-completion");
+                        }
                         if(text.contains(entwurfUndAusfuehrung)) {
                             text = text.replace(entwurfUndAusfuehrung, "architect-execution:");
                         }
                         if(text.contains(entwurfUndBauherrSpecial)) {
                             text = text.replace(entwurfUndBauherrSpecial, "architect-builder-owner:");
+                        }
+                        if(text.contains(entwurfUndFertigstellung)) {
+                            text = text.replace(entwurfUndFertigstellung, "design-completion");
                         }
                         if(text.contains(entwurfUndBauherr)) {
                             text = text.replace(entwurfUndBauherr,"architect-builder-owner:");
@@ -217,6 +226,9 @@ public class DenkmalHelper {
                         }
                         if(text.contains(ausfuehrungUndEntwurf)) {
                             text = text.replace(ausfuehrungUndEntwurf, "architect-execution:");
+                        }
+                        if(text.contains(planungUndAusführung)) {
+                            text = text.replace(planungUndAusführung, "planning-execution");
                         }
                         if(text.contains(bauherrUndAusfuehrung)) {
                             text = text.replace(bauherrUndAusfuehrung, "execution-builder-owner");

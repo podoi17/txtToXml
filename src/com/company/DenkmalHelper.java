@@ -22,15 +22,21 @@ public class DenkmalHelper {
     private final String hausnummer = "Hausnummer: ";
     private final String entwurf = "Entwurf:";
     private final String ausfuehrungUndEntwurfSpecial = "Ausführung & Entwurf (?):";
+    private final String ausfuehrungUndEntwurf = "Ausführung & Entwurf:";
     private final String entwurfUndAusfuehrungSpecial = "Entwurf & Ausführung (?):";
     private final String entwurfUndAusfuerungSpecialSecond = "Entwurf (?) & Ausführung (?):";
     private final String entwurfUndAusfuehrungSpecialThird = "Entwurf & Ausführung?:";
+    private final String entwurfUndAusfuehrungSpecialFourth = "Entwurf (?) & Ausführung:";
+    private final String entwurfUndAusfuehrungSpecialFifth = "Entwurf? & Ausführung:";
     private final String entwurfUndAusfuehrung = "Entwurf & Ausführung:";
     private final String entwurfUndAusfuehrungUndBauherrSpecial = "Entwurf & Ausführung (?) & Bauherr:";
     private final String entwurfUndAusfuehrungUndBauherr = "Entwurf & Ausführung & Bauherr:";
+    private final String bauherrUndEntwurfUndAusführung = "Bauherr & Entwurf & Ausführung:";
     private final String entwurfUndBauherrSpecial = "Entwurf (?) & Bauherr:";
     private final String entwurfUndBauherr = "Entwurf & Bauherr:";
+    private final String bauherrUndEntwurf = "Bauherr & Entwurf:";
     private final String ausfuehrungUndBauherr = "Ausführung & Bauherr:";
+    private final String ausfuehrungUndBauherrSpecial = "Ausführung (?) & Bauherr:";
     private final String bauherrUndAusfuehrung = "Bauherr & Ausführung:";
     private final String entwurfUndBaubeginn = "Entwurf & Baubeginn:";
     private final String entwurfUndDatierung = "Entwurf & Datierung:";
@@ -170,6 +176,9 @@ public class DenkmalHelper {
                         if(text.contains(entwurfUndAusfuehrungUndBauherr)) {
                             text = text.replace(entwurfUndAusfuehrungUndBauherr, "architect-execution-builder-owner:");
                         }
+                        if(text.contains(bauherrUndEntwurfUndAusführung)) {
+                            text = text.replace(bauherrUndEntwurfUndAusführung, "architect-execution-builder-owner:");
+                        }
                         if(text.contains(ausfuehrungUndEntwurfSpecial)) {
                             text = text.replace(ausfuehrungUndEntwurfSpecial, "architect-execution:");
                         }
@@ -178,6 +187,12 @@ public class DenkmalHelper {
                         }
                         if(text.contains(entwurfUndAusfuehrungSpecialThird)) {
                             text = text.replace(entwurfUndAusfuehrungSpecialThird, "architect-execution:");
+                        }
+                        if(text.contains(entwurfUndAusfuehrungSpecialFourth)) {
+                            text = text.replace(entwurfUndAusfuehrungSpecialFourth, "architect-execution:");
+                        }
+                        if(text.contains(entwurfUndAusfuehrungSpecialFifth)) {
+                            text = text.replace(entwurfUndAusfuehrungSpecialFifth, "architect-execution:");
                         }
                         if(text.contains(entwurfUndAusfuehrungSpecial)) {
                             text = text.replace(entwurfUndAusfuehrungSpecial, "architect-execution:");
@@ -191,8 +206,17 @@ public class DenkmalHelper {
                         if(text.contains(entwurfUndBauherr)) {
                             text = text.replace(entwurfUndBauherr,"architect-builder-owner:");
                         }
+                        if(text.contains(bauherrUndEntwurf)) {
+                            text = text.replace(bauherrUndEntwurf, "architect-builder-owner:");
+                        }
+                        if(text.contains(ausfuehrungUndBauherrSpecial)) {
+                            text = text.replace(ausfuehrungUndBauherrSpecial, "architect-builder-owner:");
+                        }
                         if(text.contains(ausfuehrungUndBauherr)) {
                             text = text.replace(ausfuehrungUndBauherr, "execution-builder-owner:");
+                        }
+                        if(text.contains(ausfuehrungUndEntwurf)) {
+                            text = text.replace(ausfuehrungUndEntwurf, "architect-execution:");
                         }
                         if(text.contains(bauherrUndAusfuehrung)) {
                             text = text.replace(bauherrUndAusfuehrung, "execution-builder-owner");
@@ -346,7 +370,7 @@ public class DenkmalHelper {
 
     public String[] openStreetMapSearch(String url ) throws IOException, ParseException, IndexOutOfBoundsException {
         String[] latiLongi = new String [2];
-        String json = Jsoup.connect(url).ignoreContentType(true).execute().body();
+        String json = Jsoup.connect(url).userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0").ignoreContentType(true).execute().body();
         JSONParser jsonParser = new JSONParser();
         JSONArray jsonArray = (JSONArray) jsonParser.parse(json);
         if(jsonArray.size() > 0) {

@@ -48,7 +48,7 @@ public class Main {
 
             XMLFile xmlFileFactory = new XMLFile();
 
-            File file = new File("denkmaleTest.xml");
+            File file = new File("denkmaleTemp.xml");
 
             DenkmalHelper denkmalHelper = new DenkmalHelper();
 

@@ -1,15 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <denkmaeler>
-    <denkmal id="09012529">
-        <description>Zwangsarbeiterlager am Columbiadamm, Baracken und Splitterschutzgraben</description>
-        <location/>
-        <street>Columbiadamm: 88, 90, 92, 94</street>
-        <street>Tempelhofer Damm: 101</street>
-        <date> 1941-1944</date>
-        <date> 1941-1944</date>
-        <builder-owner> Weser-Flug GmbH</builder-owner>
+    <denkmal id="09040308">
+        <description>AGA Automobil-Vertriebs-Gesellschaft m.b.H.</description>
+        <location>- Lichtenberg</location>
+        <street>Herzbergstraße: 82, 83, 84</street>
+        <datierung>1916-1919</datierung>
+        <entwurf>Buch,Carl-EmilBruno(Architekt)</entwurf>
+        <ausfuehrung>Bachur,S.(Maurermeister)</ausfuehrung>
+        <datierung>1916-1919</datierung>
+        <entwurf>Buch,Carl-EmilBruno(Architekt)</entwurf>
+        <ausfuehrung>Bachur,S.(Maurermeister)</ausfuehrung>
+        <undefined>EckertundDanneberg(Baugeschaeft)</undefined>
+        <ausfuehrung>AutogenGasaccumulatorA-G()</ausfuehrung>
         <text/>
-        <latitude>52.480074</latitude>
-        <longitude>13.4185147</longitude>
+        <image>http://www.stadtentwicklung.berlin.de/denkmal/liste_karte_datenbank/de/denkmaldatenbank/bilder/Lic/01/09040308d5.jpg</image>
+        <latitude>52.5264119</latitude>
+        <longitude>13.5039143</longitude>
+        <datierung>1916-1919</datierung>
+        <entwurf>Buch,Carl-EmilBruno(Architekt)</entwurf>
+        <ausfuehrung>Bachur,S.(Maurermeister)</ausfuehrung>
+        <undefined>EckertundDanneberg(Baugeschaeft)</undefined>
+        <ausfuehrung>AutogenGasaccumulatorA-G()</ausfuehrung>
+        <text/>
+        <image>http://www.stadtentwicklung.berlin.de/denkmal/liste_karte_datenbank/de/denkmaldatenbank/bilder/Lic/01/09040308d5.jpg</image>
+        <latitude>52.5264119</latitude>
+        <longitude>13.5039143</longitude>
     </denkmal>
 </denkmaeler>

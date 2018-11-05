@@ -170,109 +170,13 @@ public class DenkmalHelper {
                 try {
                     for(Element element : bodies) {
                         String text = element.text();
+                        text = text.replace("---", "undefined");
                         text = text.replace("&", "-");
                         text = text.replace("(?)", "");
                         text = text.replace("ü", "ue");
                         text = text.replace("ä", "ae");
                         text = text.replace("ö", "oe");
                         text = text.replace(" ", "");
-                        if(text.contains(undefined)) {
-                            text = text.replace(undefined, "undefined:");
-                        }
-                        if(text.contains(entwurfUndAusfuehrungUndBauherrSpecial)) {
-                            text = text.replace(entwurfUndAusfuehrungUndBauherrSpecial, "architect-execution-builder-owner:");
-                        }
-                        if(text.contains(entwurfUndAusfuehrungUndBauherr)) {
-                            text = text.replace(entwurfUndAusfuehrungUndBauherr, "architect-execution-builder-owner:");
-                        }
-                        if(text.contains(bauherrUndEntwurfUndAusführung)) {
-                            text = text.replace(bauherrUndEntwurfUndAusführung, "architect-execution-builder-owner:");
-                        }
-                        if(text.contains(ausfuehrungUndEntwurfSpecial)) {
-                            text = text.replace(ausfuehrungUndEntwurfSpecial, "architect-execution:");
-                        }
-                        if(text.contains(entwurfUndAusfuerungSpecialSecond)) {
-                            text = text.replace(entwurfUndAusfuerungSpecialSecond, "architect-execution:");
-                        }
-                        if(text.contains(entwurfUndAusfuehrungSpecialThird)) {
-                            text = text.replace(entwurfUndAusfuehrungSpecialThird, "architect-execution:");
-                        }
-                        if(text.contains(entwurfUndAusfuehrungSpecialFourth)) {
-                            text = text.replace(entwurfUndAusfuehrungSpecialFourth, "architect-execution:");
-                        }
-                        if(text.contains(entwurfUndAusfuehrungSpecialFifth)) {
-                            text = text.replace(entwurfUndAusfuehrungSpecialFifth, "architect-execution:");
-                        }
-                        if(text.contains(entwurfUndAusfuehrungSpecial)) {
-                            text = text.replace(entwurfUndAusfuehrungSpecial, "architect-execution:");
-                        }
-                        if(text.contains(entwurfUndBaubeginnUndFertigstellung)) {
-                            text = text.replace(entwurfUndBaubeginnUndFertigstellung, "design-start-of-execution-completion");
-                        }
-                        if(text.contains(entwurfUndAusfuehrung)) {
-                            text = text.replace(entwurfUndAusfuehrung, "architect-execution:");
-                        }
-                        if(text.contains(entwurfUndBauherrSpecial)) {
-                            text = text.replace(entwurfUndBauherrSpecial, "architect-builder-owner:");
-                        }
-                        if(text.contains(entwurfUndFertigstellung)) {
-                            text = text.replace(entwurfUndFertigstellung, "design-completion");
-                        }
-                        if(text.contains(entwurfUndBauherr)) {
-                            text = text.replace(entwurfUndBauherr,"architect-builder-owner:");
-                        }
-                        if(text.contains(bauherrUndEntwurf)) {
-                            text = text.replace(bauherrUndEntwurf, "architect-builder-owner:");
-                        }
-                        if(text.contains(ausfuehrungUndBauherrSpecial)) {
-                            text = text.replace(ausfuehrungUndBauherrSpecial, "architect-builder-owner:");
-                        }
-                        if(text.contains(ausfuehrungUndBauherr)) {
-                            text = text.replace(ausfuehrungUndBauherr, "execution-builder-owner:");
-                        }
-                        if(text.contains(ausfuehrungUndEntwurf)) {
-                            text = text.replace(ausfuehrungUndEntwurf, "architect-execution:");
-                        }
-                        if(text.contains(planungUndAusführung)) {
-                            text = text.replace(planungUndAusführung, "planning-execution");
-                        }
-                        if(text.contains(bauherrUndAusfuehrung)) {
-                            text = text.replace(bauherrUndAusfuehrung, "execution-builder-owner");
-                        }
-                        if(text.contains(entwurfUndBaubeginn)) {
-                            text = text.replace(entwurfUndBaubeginn, "architect-start-of-construction:");
-                        }
-                        if(text.contains(entwurfUndDatierung)) {
-                            text = text.replace(entwurfUndDatierung, "architect-date");
-                        }
-                        if(text.contains(designSpecial)) {
-                            text = text.replace(designSpecial, "architect:");
-                        }
-                        if(text.contains(entwurf)) {
-                            text = text.replace(entwurf, "architect:");
-                        }
-                        if(text.contains(datierung)) {
-                            text = text.replace(datierung, "date:");
-                        }
-                        if(text.contains(ausfuehrungSpecial)) {
-                            text = text.replace(ausfuehrungSpecial, "execution:");
-                        }
-                        if(text.contains(ausfuehrung)) {
-                            text = text.replace(ausfuehrung, "execution:");
-                        }
-                        if(text.contains(bauherrSpecial)) {
-                            text = text.replace(bauherrSpecial, "builder-owner:");
-                        }
-                        if(text.contains(bauherr)) {
-                            text = text.replace(bauherr, "builder-owner:");
-                        }
-                        if(text.contains(literatur)) {
-                            text = text.replace(literatur, "literature:");
-                        }
-                        if(text.contains(umbau)) {
-                            text = text.replace(umbau, "reconstruction:");
-                        }
-
                         newElements.add(text);
                     }
                 } catch (ArrayIndexOutOfBoundsException e) {

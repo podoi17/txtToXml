@@ -48,12 +48,17 @@ public class Main {
 
             XMLFile xmlFileFactory = new XMLFile();
 
-            File file = new File("denkmaleTemp.xml");
+            File file = new File("denkmaleFull.xml");
 
             DenkmalHelper denkmalHelper = new DenkmalHelper();
 
             xmlFileFactory.setDoc(file.getPath());
             NodeList nodeList = xmlFileFactory.getDoc().getElementsByTagName("denkmal");
+            for(int i = 0; i < nodeList.getLength(); i++) {
+                Node node = nodeList.item(i);
+                xmlFileFactory.addIdToAttributeAndRemoveIdElement(node, "id", 0);
+            }
+            System.out.println("adden begonnen");
 
 
             //es muss weiter xml erstellt werden und die cases ermittelt werden

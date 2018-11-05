@@ -262,7 +262,7 @@ public class XMLFile {
                 for (String info : newInfos) {
                     String[] temp = info.split(":");
                     if(temp.length == 2) {
-                        addElement(node, temp[0], temp[1]);
+                        addElement(node, temp[0].toLowerCase(), temp[1]);
                     }
                 }
                 String detailText = denkmalHelper.getDetaliText(id);

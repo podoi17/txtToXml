@@ -170,6 +170,12 @@ public class DenkmalHelper {
                 try {
                     for(Element element : bodies) {
                         String text = element.text();
+                        text = text.replace("&", "-");
+                        text = text.replace("(?)", "");
+                        text = text.replace("ü", "ue");
+                        text = text.replace("ä", "ae");
+                        text = text.replace("ö", "oe");
+                        text = text.replace(" ", "");
                         if(text.contains(undefined)) {
                             text = text.replace(undefined, "undefined:");
                         }

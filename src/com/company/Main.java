@@ -6,31 +6,16 @@ package com.company;
 
 
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.jsoup.Jsoup;
-
-import org.jsoup.nodes.Document;
-
-import org.jsoup.parser.Parser;
-import org.jsoup.select.Elements;
-
-import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 
-import javax.sound.midi.Soundbank;
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.sql.SQLOutput;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 
 public class Main {
 
+    static HashSet<String> tags = new HashSet<>();
     public static void main(String[] args) {
 
 
@@ -48,9 +33,12 @@ public class Main {
 
             XMLFile xmlFileFactory = new XMLFile();
 
-            File file = new File("denkmaleFull.xml");
+            File file = new File("denkmal5.xml");
+            File fileTags = new File("tags.txt");
 
             DenkmalHelper denkmalHelper = new DenkmalHelper();
+            FileHelper fileHelper = new FileHelper(fileTags);
+            tags = fileHelper.fileToMap();
 
             xmlFileFactory.setDoc(file.getPath());
             NodeList nodeList = xmlFileFactory.getDoc().getElementsByTagName("denkmal");
@@ -62,8 +50,9 @@ public class Main {
 
 
             //es muss weiter xml erstellt werden und die cases ermittelt werden
-            xmlFileFactory.createNewXMLFile(nodeList);
+            xmlFileFactory.createNewXMLFile(nodeList, tags);
             xmlFileFactory.convertToProperXMLFile(file);
+            fileHelper.mapToFile(tags);
 
 
 
@@ -73,10 +62,6 @@ public class Main {
         }
 
 
-    }
-    public static String[] foo() {
-        String[] bar = new String[]{null, null};
-        return bar;
     }
 }
 

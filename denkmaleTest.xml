@@ -1,29 +1,70 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <denkmaeler>
-    <denkmal id="09040308">
-        <description>AGA Automobil-Vertriebs-Gesellschaft m.b.H.</description>
-        <location>- Lichtenberg</location>
-        <street>Herzbergstraße: 82, 83, 84</street>
-        <datierung>1916-1919</datierung>
-        <entwurf>Buch,Carl-EmilBruno(Architekt)</entwurf>
-        <ausfuehrung>Bachur,S.(Maurermeister)</ausfuehrung>
-        <datierung>1916-1919</datierung>
-        <entwurf>Buch,Carl-EmilBruno(Architekt)</entwurf>
-        <ausfuehrung>Bachur,S.(Maurermeister)</ausfuehrung>
-        <undefined>EckertundDanneberg(Baugeschaeft)</undefined>
-        <ausfuehrung>AutogenGasaccumulatorA-G()</ausfuehrung>
+    <denkmal id="09040604">
+        <description>St. Thomaskirche, kath.</description>
+        <location>- Charlottenburg-Wilmersdorf</location>
+        <street>Schillerstraße: 101, 102</street>
+        <datierung>1884-1885-1901-1931-1932</datierung>
+        <entwurf>George,Ernst(Architekt)</entwurf>
+        <entwurf>Linder,Paul(Architekt)</entwurf>
+        <bauherr>Herz-Jesu-Kirchengemeinde,kath.(Baugeschaeft)</bauherr>
+        <ausfuehrung>HeilmannundLittmann</ausfuehrung>
+        <literatur>InventarCharlottenburg,1961/Seite119-122WasmuthsMonatsheftefuerBaukunst17(1933)/Seite53ff.Bauwelt24(1933)/Seite1253-56WasmuthsMonatsheftefuerBaukunst17(1933)/Seite533-556</literatur>
         <text/>
-        <image>http://www.stadtentwicklung.berlin.de/denkmal/liste_karte_datenbank/de/denkmaldatenbank/bilder/Lic/01/09040308d5.jpg</image>
-        <latitude>52.5264119</latitude>
-        <longitude>13.5039143</longitude>
-        <datierung>1916-1919</datierung>
-        <entwurf>Buch,Carl-EmilBruno(Architekt)</entwurf>
-        <ausfuehrung>Bachur,S.(Maurermeister)</ausfuehrung>
-        <undefined>EckertundDanneberg(Baugeschaeft)</undefined>
-        <ausfuehrung>AutogenGasaccumulatorA-G()</ausfuehrung>
+        <latitude>52.5103754</latitude>
+        <longitude>13.3128292</longitude>
+    </denkmal>
+    <denkmal id="09040603">
+        <description>Fabrikgebäude &amp; Maschinenhaus &amp; Comptoir Salzufer 15 &amp; 16</description>
+        <location>- Charlottenburg-Wilmersdorf</location>
+        <street>Salzufer: 15, 16</street>
+        <datierung>vor1867-1897-1898-1909</datierung>
+        <entwurf>Lindemann,Carl(Architekt)</entwurf>
+        <entwurf>Gerhardt,Ernst(Architekt)</entwurf>
+        <bauherr>Lutter,Heinrich(Fabrikant)</bauherr>
+        <bauherr>Jaffé,Benno(Chemiker)</bauherr>
+        <literatur>InventarCharlottenburg,1961/Seite636Hirschfeld/BerlinsGroßindustrie,Ergaenzungsband,1901/Seite164-166</literatur>
         <text/>
-        <image>http://www.stadtentwicklung.berlin.de/denkmal/liste_karte_datenbank/de/denkmaldatenbank/bilder/Lic/01/09040308d5.jpg</image>
-        <latitude>52.5264119</latitude>
-        <longitude>13.5039143</longitude>
+        <image>http://www.stadtentwicklung.berlin.de/denkmal/liste_karte_datenbank/de/denkmaldatenbank/bilder/Cha/03/09040603.jpg</image>
+        <image>http://www.stadtentwicklung.berlin.de/denkmal/liste_karte_datenbank/de/denkmaldatenbank/bilder/Cha/03/09040603a.jpg</image>
+        <latitude>52.5186606</latitude>
+        <longitude>13.3221354</longitude>
+    </denkmal>
+    <denkmal id="09040602">
+        <description>Gummiwarenfabrik</description>
+        <location>- Pankow</location>
+        <street>Puccinistraße: 22</street>
+        <street>Herbert-Baum-Straße: 42, 44</street>
+        <text/>
+        <latitude>52.5448616</latitude>
+        <longitude>13.4561304</longitude>
+    </denkmal>
+    <denkmal id="09065901">
+        <description>Einfamilienhaus Jungfernstieg 19</description>
+        <location>- Steglitz-Zehlendorf</location>
+        <street>Jungfernstieg: 19</street>
+        <datierung>1885-1886</datierung>
+        <umbau>1916</umbau>
+        <entwurf>Hintz,ReinholdRichard(Baumeister)</entwurf>
+        <bauherr>Drenker,Emil</bauherr>
+        <text/>
+        <latitude>52.4323433</latitude>
+        <longitude>13.3285344649577</longitude>
+    </denkmal>
+    <denkmal id="09040601">
+        <description>Verwaltungsbau &amp; Industrieanlage Liebermannstraße 75 &amp; 77 Neumagener Straße 28 &amp; 30 &amp; 32</description>
+        <location>- Pankow</location>
+        <street>Liebermannstraße: 75, 77</street>
+        <street>Neumagener Straße: 28, 30, 32</street>
+        <datierung>1913-1917</datierung>
+        <umbau>1939-1951</umbau>
+        <entwurf>Buch,Carl-EmilBruno(Architekt)</entwurf>
+        <entwurf>Schubert,Richard(Architekt)</entwurf>
+        <bauherr>Riebe-Kugellager-undWerkzeugfabrikGmbH</bauherr>
+        <bauherr>VEBPhonetika</bauherr>
+        <literatur>Paape,BrunoBuch,1985/Seite..Moebius,BrunoBuch,1929</literatur>
+        <text/>
+        <latitude>52.5599433</latitude>
+        <longitude>13.4724342</longitude>
     </denkmal>
 </denkmaeler>

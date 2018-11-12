@@ -33,7 +33,7 @@ public class Main {
 
             XMLFile xmlFileFactory = new XMLFile();
 
-            File file = new File("denkmal5.xml");
+            File file = new File("denkmal6.xml");
             File fileTags = new File("tags.txt");
 
             DenkmalHelper denkmalHelper = new DenkmalHelper();
@@ -42,10 +42,10 @@ public class Main {
 
             xmlFileFactory.setDoc(file.getPath());
             NodeList nodeList = xmlFileFactory.getDoc().getElementsByTagName("denkmal");
-            for(int i = 0; i < nodeList.getLength(); i++) {
-                Node node = nodeList.item(i);
-                xmlFileFactory.addIdToAttributeAndRemoveIdElement(node, "id", 0);
-            }
+//            for(int i = 0; i < nodeList.getLength(); i++) {
+//                Node node = nodeList.item(i);
+//                xmlFileFactory.addIdToAttributeAndRemoveIdElement(node, "id", 0);
+//            }
             System.out.println("adden begonnen");
 
 

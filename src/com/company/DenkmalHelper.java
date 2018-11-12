@@ -178,6 +178,7 @@ public class DenkmalHelper {
                         text = text.replace("ä", "ae");
                         text = text.replace("ö", "oe");
                         text = text.replace(" ", "");
+                        text = text.replace("?", "");
                         newElements.add(text);
                     }
                 } catch (ArrayIndexOutOfBoundsException e) {

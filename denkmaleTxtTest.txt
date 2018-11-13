@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<denkmaeler>
+    <denkmal id="09060009">
+        <beschreibung>Wohnanlage mit Innenhof</beschreibung>
+        <ort>10439 Berlin Pankow</ort>
+        <strasse>Krügerstrasse: 2, 4, 6, 8, 10, 12, 14, 16</strasse>
+        <strasse>Kuglerstrasse: 88</strasse>
+        <strasse>Dunckerstrasse: 52, 53, 54, 55, 56, 57, 58</strasse>
+        <strasse>Erich-Weinert-Strasse: 65, 67, 69, 71, 73, 75</strasse>
+        <datierung>1926-1928</datierung>
+        <entwurf>Braun,Josef-Gunzenhauser,Alfred(Architekt)</entwurf>
+        <ausfuehrung>BerlinischeBoden-Gesellschaft</ausfuehrung>
+        <bauherr>"Heimat"GemeinnuetzigeBau-undSiedlungs-AG</bauherr>
+        <literatur>BusBIVA1970/SeiteS.273.Bau-undKunstdenkmaleBerlinI,Berlin1983/SeiteS.390.</literatur>
+        <text/>
+        <latitude>52.5495438</latitude>
+        <longitude>13.4251363</longitude>
+    </denkmal>
+    <denkmal id="09035065">
+        <beschreibung>Mietshaus Tucholskystrasse 31 &amp; 33 Auguststrasse 7 &amp; 8</beschreibung>
+        <ort>10117 Berlin Mitte</ort>
+        <strasse>Tucholskystrasse: 31, 33</strasse>
+        <strasse>Auguststrasse: 7, 8</strasse>
+        <fertigstellung>1893</fertigstellung>
+        <literatur>TopographieMitte/Mitte,2003/Seite486</literatur>
+        <text>Nach Abbruch der Vorgängerbebauung im Zuge der Strassenverbreiterung der damaligen Artilleriestrasse wurde 1893 das Mietshaus Tucholskystrasse 31/33 auf dem spitzwinkligen Eckgrundstück an der Auguststrasse erbaut. (1) Die Eckfassade beherrscht die Kreuzungssituation und nimmt mit variierender Bauhöhe und Dachform deutlich Bezug auf die unterschiedlichen Strassenbreiten in der August- und der Tucholskystrasse sowie auf die Nachbarbebauung. Ein Erker an der abgeschrägten Ecke unterstreicht die exponierte Stellung des Gebäudes. Beide Strassenfassaden sind ganzflächig gequadert. Die Gliederungen in Mischformen von Neogotik und Jugendstil setzen sich in der Gestaltung der beiden Treppenanlagen im Innern fort. Eine für die damalige Zeit moderne Eisenkonstruktion der Treppen verbindet in eleganter Weise die von Industrieformen geprägte Sachlichkeit mit kunsthandwerklichen Details in neogotischen Formen. 1997-98 wurden die Fassaden unter Bewahrung der originalen Bausubstanz restauriert.(1) Die ursprünglich zur Artilleriekaserne am Kupfergraben führende Artilleriestrasse wurde 1951 in Tucholskystrasse umbenannt.</text>
+        <image>http://www.stadtentwicklung.berlin.de/denkmal/liste_karte_datenbank/de/denkmaldatenbank/bilder/Mit/02/09035065a.jpg</image>
+        <latitude>52.5260016</latitude>
+        <longitude>13.393247</longitude>
+    </denkmal>
+    <denkmal id="09085336">
+        <beschreibung>Orangerie des Schlosses Niederschönhausen</beschreibung>
+        <ort>Pankow</ort>
+        <strasse>Dietzgenstrasse: 6</strasse>
+        <strasse>Am Orangeriepark: 1, 2, 4, 6</strasse>
+        <datierung>1775-1777</datierung>
+        <literatur>Bau-undKunstdenkmaleBerlinII,Berlin1987/SeiteS.63Keil,Barbara,BaudenkmaleinPankow,Berlin1993/SeiteS.30,31</literatur>
+        <text/>
+        <latitude>52.5810809</latitude>
+        <longitude>13.4041398</longitude>
+    </denkmal>
+    <denkmal id="09035036">
+        <beschreibung>Mietshaus Auguststrasse 19</beschreibung>
+        <ort>Mitte</ort>
+        <strasse>Auguststrasse: 19</strasse>
+        <fertigstellung>1884</fertigstellung>
+        <bauherr>Quast,Karl(Maurer)</bauherr>
+        <literatur>TopographieMitte/Mitte,2003/Seite492f.</literatur>
+        <text>Das ursprünglich nur viergeschossige Mietshaus Auguststrasse 19 wurde 1884 als Dreiflügelanlage errichtet. (1) Die symmetrisch aufgebaute Hauptfassade ist mit gelben Ziegeln verblendet und wird durch Balkone und umfangreichen Zierrat aus Putz- und Stuckornamenten in Neorenaissanceformen gegliedert. Kennzeichnend sind die rustizierten Wandflächen, die unterschiedlichen Fensterverdachungen sowie die strenge, lineare Ausformung einzelner Gestaltungsdetails. Als Zweispänner für wohlhabendere bürgerliche Mieter in den Hauptwohngeschossen angelegt, reichen die Wohnungen bis in die Seitenflügel. Mit den Wohn- und Schlafräumen im Vorderhaus, den über einen schmalen Stichflur erschlossenen Sanitär- und Wirtschaftsräumen sowie der Mädchenkammer im Seitenflügel, repräsentieren diese erhaltenen Wohngrundrisse und die in einzelnen Wohnräumen überlieferten qualitätsvolle Stuckdecken und Parkettfussböden auf exemplarische Weise ein wichtiges Kapitel bürgerlicher Wohnkultur des ausgehenden 19. Jahrhunderts in Berlin. Das stark vernachlässigte Mietshaus wurde 1997-98 restauriert.(1) Das fünfte Geschoss wurde nach 1945 provisorisch aufgesetzt und im Zuge der Sanierung und Restaurierung des Hauses gestalterisch integriert.</text>
+        <image>http://www.stadtentwicklung.berlin.de/denkmal/liste_karte_datenbank/de/denkmaldatenbank/bilder/Mit/02/09035036.jpg</image>
+        <latitude>52.5266992</latitude>
+        <longitude>13.3957572</longitude>
+    </denkmal>

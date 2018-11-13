@@ -6,31 +6,17 @@ package com.company;
 
 
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.jsoup.Jsoup;
-
-import org.jsoup.nodes.Document;
-
-import org.jsoup.parser.Parser;
-import org.jsoup.select.Elements;
-
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 
-import javax.sound.midi.Soundbank;
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.sql.SQLOutput;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 
 public class Main {
 
+    static HashSet<String> tags = new HashSet<>();
     public static void main(String[] args) {
 
 
@@ -39,39 +25,53 @@ public class Main {
         String url = "https://nominatim.openstreetmap.org/search/gb/birmingham/pilkington%20avenue/135?format=xml&polygon=1&addressdetails=1";
         String url1 = "https://nominatim.openstreetmap.org/search/Unter%20den%20Linden%201%20Berlin?format=json&addressdetails=1&limit=1&polygon_svg=1";
 
+        TXTService txtService = new TXTService("denkmaleFullNewKopie.txt");
+        txtService.createTagList();
+        File file = new File("tags.txt");
+        txtService.writeNewTagsIntoFile(file);
+//        HashSet<String> set = txtService.createTagList();
+//
+//        for(String st: set) {
+//            System.out.println(st);
+//        }
 
 
         int counter = 0;
         String idTemp = "";
 
-        try {
+//        try {
+//
+//            XMLFile xmlFileFactory = new XMLFile();
+//
+//            File file = new File("denkmal10.xml");
+//            File fileTags = new File("tags.txt");
+//
+//            DenkmalHelper denkmalHelper = new DenkmalHelper();
+//            FileHelper fileHelper = new FileHelper(fileTags);
+//            tags = fileHelper.fileToMap();
+//
+//            xmlFileFactory.setDoc(file.getPath());
+//            NodeList nodeList = xmlFileFactory.getDoc().getElementsByTagName("denkmal");
+//            for(int i = 0; i < nodeList.getLength(); i++) {
+//                Node node = nodeList.item(i);
+//                xmlFileFactory.addIdToAttributeAndRemoveIdElement(node, "id", 0);
+//            }
+//            System.out.println("adden begonnen");
+//
+//
+//            //es muss weiter xml erstellt werden und die cases ermittelt werden
+//            xmlFileFactory.createNewXMLFile(nodeList, tags);
+//            xmlFileFactory.convertToProperXMLFile(file);
+//            fileHelper.mapToFile(tags);
+//
+//
+//
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//            System.out.println(idTemp);
+//        }
 
-            XMLFile xmlFileFactory = new XMLFile();
 
-            File file = new File("denkmaleTest.xml");
-
-            DenkmalHelper denkmalHelper = new DenkmalHelper();
-
-            xmlFileFactory.setDoc(file.getPath());
-            NodeList nodeList = xmlFileFactory.getDoc().getElementsByTagName("denkmal");
-
-
-            //es muss weiter xml erstellt werden und die cases ermittelt werden
-            xmlFileFactory.createNewXMLFile(nodeList);
-            xmlFileFactory.convertToProperXMLFile(file);
-
-
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            System.out.println(idTemp);
-        }
-
-
-    }
-    public static String[] foo() {
-        String[] bar = new String[]{null, null};
-        return bar;
     }
 }
 

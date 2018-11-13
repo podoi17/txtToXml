@@ -2,6 +2,8 @@ package com.company;
 
 import java.io.*;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TXTService {
 
@@ -9,12 +11,14 @@ public class TXTService {
     private List<String> textList;
     private HashSet<String> ids;
     private HashMap<String, String> textMap;
+    private HashSet<String> tags;
 
     public TXTService(String path) {
         file = new File(path);
         textList = new ArrayList<>();
         textMap = new HashMap<>();
         ids = new HashSet<>();
+        tags = new HashSet<>();
     }
 
 
@@ -39,6 +43,48 @@ public class TXTService {
         }
         return ids;
     }
+
+    public HashSet<String> createTagList() {
+
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(this.file));
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                Pattern pattern = Pattern.compile("<[a-zA-Z-]*>");
+                Matcher matcher = pattern.matcher(line);
+                if(matcher.find()) {
+                    String temp = matcher.group(0);
+                    temp = temp.replace("<", "");
+                    temp = temp.replace(">", "");
+                    this.tags.add(temp);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return this.tags;
+    }
+
+
+    public void writeNewTagsIntoFile(File file) {
+        try {
+            FileWriter fileWriter = new FileWriter(file.getPath());
+            for(String tag: this.tags) {
+                fileWriter.write(tag);
+                fileWriter.write("\n");
+            }
+            fileWriter.close();
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+
 
 
     public void printList() {

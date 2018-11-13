@@ -11,6 +11,7 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -22,16 +23,25 @@ public class DenkmalHelper {
     private final String hausnummer = "Hausnummer: ";
     private final String entwurf = "Entwurf:";
     private final String ausfuehrungUndEntwurfSpecial = "Ausführung & Entwurf (?):";
+    private final String ausfuehrungUndEntwurf = "Ausführung & Entwurf:";
     private final String entwurfUndAusfuehrungSpecial = "Entwurf & Ausführung (?):";
     private final String entwurfUndAusfuerungSpecialSecond = "Entwurf (?) & Ausführung (?):";
     private final String entwurfUndAusfuehrungSpecialThird = "Entwurf & Ausführung?:";
+    private final String entwurfUndAusfuehrungSpecialFourth = "Entwurf (?) & Ausführung:";
+    private final String entwurfUndAusfuehrungSpecialFifth = "Entwurf? & Ausführung:";
     private final String entwurfUndAusfuehrung = "Entwurf & Ausführung:";
     private final String entwurfUndAusfuehrungUndBauherrSpecial = "Entwurf & Ausführung (?) & Bauherr:";
     private final String entwurfUndAusfuehrungUndBauherr = "Entwurf & Ausführung & Bauherr:";
+    private final String entwurfUndBaubeginnUndFertigstellung = "Entwurf & Baubeginn & Fertigstellung:";
+    private final String bauherrUndEntwurfUndAusführung = "Bauherr & Entwurf & Ausführung:";
     private final String entwurfUndBauherrSpecial = "Entwurf (?) & Bauherr:";
+    private final String entwurfUndFertigstellung = "Entwurf & Fertigstellung:";
     private final String entwurfUndBauherr = "Entwurf & Bauherr:";
+    private final String bauherrUndEntwurf = "Bauherr & Entwurf:";
     private final String ausfuehrungUndBauherr = "Ausführung & Bauherr:";
+    private final String ausfuehrungUndBauherrSpecial = "Ausführung (?) & Bauherr:";
     private final String bauherrUndAusfuehrung = "Bauherr & Ausführung:";
+    private final String planungUndAusführung = "Planung & Ausführung:";
     private final String entwurfUndBaubeginn = "Entwurf & Baubeginn:";
     private final String entwurfUndDatierung = "Entwurf & Datierung:";
     private final String designSpecial = "Entwurf (?):";
@@ -161,76 +171,14 @@ public class DenkmalHelper {
                 try {
                     for(Element element : bodies) {
                         String text = element.text();
-                        if(text.contains(undefined)) {
-                            text = text.replace(undefined, "undefined:");
-                        }
-                        if(text.contains(entwurfUndAusfuehrungUndBauherrSpecial)) {
-                            text = text.replace(entwurfUndAusfuehrungUndBauherrSpecial, "architect-execution-builder-owner:");
-                        }
-                        if(text.contains(entwurfUndAusfuehrungUndBauherr)) {
-                            text = text.replace(entwurfUndAusfuehrungUndBauherr, "architect-execution-builder-owner:");
-                        }
-                        if(text.contains(ausfuehrungUndEntwurfSpecial)) {
-                            text = text.replace(ausfuehrungUndEntwurfSpecial, "architect-execution:");
-                        }
-                        if(text.contains(entwurfUndAusfuerungSpecialSecond)) {
-                            text = text.replace(entwurfUndAusfuerungSpecialSecond, "architect-execution:");
-                        }
-                        if(text.contains(entwurfUndAusfuehrungSpecialThird)) {
-                            text = text.replace(entwurfUndAusfuehrungSpecialThird, "architect-execution:");
-                        }
-                        if(text.contains(entwurfUndAusfuehrungSpecial)) {
-                            text = text.replace(entwurfUndAusfuehrungSpecial, "architect-execution:");
-                        }
-                        if(text.contains(entwurfUndAusfuehrung)) {
-                            text = text.replace(entwurfUndAusfuehrung, "architect-execution:");
-                        }
-                        if(text.contains(entwurfUndBauherrSpecial)) {
-                            text = text.replace(entwurfUndBauherrSpecial, "architect-builder-owner:");
-                        }
-                        if(text.contains(entwurfUndBauherr)) {
-                            text = text.replace(entwurfUndBauherr,"architect-builder-owner:");
-                        }
-                        if(text.contains(ausfuehrungUndBauherr)) {
-                            text = text.replace(ausfuehrungUndBauherr, "execution-builder-owner:");
-                        }
-                        if(text.contains(bauherrUndAusfuehrung)) {
-                            text = text.replace(bauherrUndAusfuehrung, "execution-builder-owner");
-                        }
-                        if(text.contains(entwurfUndBaubeginn)) {
-                            text = text.replace(entwurfUndBaubeginn, "architect-start-of-construction:");
-                        }
-                        if(text.contains(entwurfUndDatierung)) {
-                            text = text.replace(entwurfUndDatierung, "architect-date");
-                        }
-                        if(text.contains(designSpecial)) {
-                            text = text.replace(designSpecial, "architect:");
-                        }
-                        if(text.contains(entwurf)) {
-                            text = text.replace(entwurf, "architect:");
-                        }
-                        if(text.contains(datierung)) {
-                            text = text.replace(datierung, "date:");
-                        }
-                        if(text.contains(ausfuehrungSpecial)) {
-                            text = text.replace(ausfuehrungSpecial, "execution:");
-                        }
-                        if(text.contains(ausfuehrung)) {
-                            text = text.replace(ausfuehrung, "execution:");
-                        }
-                        if(text.contains(bauherrSpecial)) {
-                            text = text.replace(bauherrSpecial, "builder-owner:");
-                        }
-                        if(text.contains(bauherr)) {
-                            text = text.replace(bauherr, "builder-owner:");
-                        }
-                        if(text.contains(literatur)) {
-                            text = text.replace(literatur, "literature:");
-                        }
-                        if(text.contains(umbau)) {
-                            text = text.replace(umbau, "reconstruction:");
-                        }
-
+                        text = text.replace("---", "undefined");
+                        text = text.replace("&", "-");
+                        text = text.replace("(?)", "");
+                        text = text.replace("ü", "ue");
+                        text = text.replace("ä", "ae");
+                        text = text.replace("ö", "oe");
+                        text = text.replace(" ", "");
+                        text = text.replace("?", "");
                         newElements.add(text);
                     }
                 } catch (ArrayIndexOutOfBoundsException e) {
@@ -245,6 +193,7 @@ public class DenkmalHelper {
         }
         return newElements;
     }
+
 
     public void getBodyTest(String id) {
         try {
@@ -346,7 +295,7 @@ public class DenkmalHelper {
 
     public String[] openStreetMapSearch(String url ) throws IOException, ParseException, IndexOutOfBoundsException {
         String[] latiLongi = new String [2];
-        String json = Jsoup.connect(url).ignoreContentType(true).execute().body();
+        String json = Jsoup.connect(url).userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0").ignoreContentType(true).execute().body();
         JSONParser jsonParser = new JSONParser();
         JSONArray jsonArray = (JSONArray) jsonParser.parse(json);
         if(jsonArray.size() > 0) {
@@ -399,7 +348,7 @@ public class DenkmalHelper {
             }
         }
         return geoData;
-    }g
+    }
 
 // Ort durch berlin ersetzen
     // leere suche ignorieren

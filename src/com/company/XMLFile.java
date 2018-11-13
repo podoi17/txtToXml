@@ -20,6 +20,7 @@ import javax.xml.xpath.XPathFactory;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 public class XMLFile {
@@ -244,7 +245,7 @@ public class XMLFile {
         writeIntoXMLFile(file);
     }
 
-    public void createNewXMLFile(NodeList nodeList) {
+    public void createNewXMLFile(NodeList nodeList, HashSet<String> set) {
         int counter = 0;
         String idTemp = "";
         try {
@@ -262,7 +263,8 @@ public class XMLFile {
                 for (String info : newInfos) {
                     String[] temp = info.split(":");
                     if(temp.length == 2) {
-                        addElement(node, temp[0], temp[1]);
+                        addElement(node, temp[0].toLowerCase(), temp[1]);
+                        set.add(temp[0].toLowerCase());
                     }
                 }
                 String detailText = denkmalHelper.getDetaliText(id);

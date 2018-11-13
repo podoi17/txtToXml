@@ -399,7 +399,7 @@ public class DenkmalHelper {
             }
         }
         return geoData;
-    }
+    }g
 
 // Ort durch berlin ersetzen
     // leere suche ignorieren
